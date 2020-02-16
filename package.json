@@ -1,0 +1,30 @@
+{
+  "name": "subtitle-parsing-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "tsc": "tsc",
+    "prettier": "prettier --write 'source/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeMakeMachines/subtitle-parsing-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WeMakeMachines/subtitle-parsing-tool/issues"
+  },
+  "homepage": "https://github.com/WeMakeMachines/subtitle-parsing-tool#readme",
+  "dependencies": {
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.2",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.2.0"
+  }
+}
