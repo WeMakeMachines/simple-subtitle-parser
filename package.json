@@ -1,8 +1,10 @@
 {
+  "private": false,
   "name": "subtitle-parsing-tool",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "author": "Franco Speziali",
+  "license": "GPL-3.0",
   "scripts": {
     "test": "jest",
     "tsc": "tsc",
@@ -12,8 +14,6 @@
     "type": "git",
     "url": "git+https://github.com/WeMakeMachines/subtitle-parsing-tool.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/WeMakeMachines/subtitle-parsing-tool/issues"
   },
