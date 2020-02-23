@@ -1,17 +1,6 @@
 import SrtParser from './index';
 
 describe('SrtParser', () => {
-	describe('stringToMultiline should', () => {
-		test('split the 2 line string into an array of 2 items', () => {
-			const srtParser = new SrtParser();
-			const string = `Something was written
-on the stone`;
-			const result = srtParser.stringToMultiline(string);
-
-			expect(result).toEqual(['Something was written', 'on the stone']);
-		});
-	});
-
 	describe('multilineToRawCueContent should', () => {
 		test('recognise the empty break between the 2 cues, resulting in an array of 2 arrays', () => {
 			const srtParser = new SrtParser();
@@ -91,31 +80,6 @@ on the stone`;
 					['1', '00:01:51,443 --> 00:01:48,108', 'Text']
 				]);
 			}).toThrowError();
-		});
-	});
-
-	describe('parseTimeStamps should', () => {
-		test('return undefined if the string does not contain a valid timestamp marker', () => {
-			const srtParser = new SrtParser();
-			const string = '';
-			const result = srtParser.parseTimeStamps(string);
-
-			expect(result).toEqual(undefined);
-		});
-	});
-
-	describe('splitTimeStamp should', () => {
-		test('return an object of 0 hours, 1 minute, 51 seconds, 611 milliseconds', () => {
-			const srtParser = new SrtParser();
-			const string = '00:01:51,611';
-			const result = srtParser.splitTimeStamp(string);
-
-			expect(result).toEqual({
-				hours: 0,
-				minutes: 1,
-				seconds: 51,
-				milliseconds: 611
-			});
 		});
 	});
 });

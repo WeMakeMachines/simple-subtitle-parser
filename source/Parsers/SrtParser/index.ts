@@ -1,36 +1,15 @@
-import { timeValuesToMilliseconds } from '../../lib/time';
-
-interface Cue {
-	sequence: number;
-	startTime: number;
-	endTime: number;
-	text: string[];
-}
-
-interface TimeStamps {
-	startTime: number;
-	endTime: number;
-}
-
-interface TimeValues {
-	hours: number;
-	minutes: number;
-	seconds: number;
-	milliseconds: number;
-}
+import Parser, { Cue } from '../Parser/index';
 
 class SrtParserError extends Error {}
 
-export default class SrtParser {
+export default class SrtParser extends Parser {
+	private timeStampMarker = '-->';
+
 	parse(string: string): Cue[] {
 		const multiline = this.stringToMultiline(string);
 		const rawCueContents = this.multilineToRawCueContent(multiline);
 
 		return this.parseCueContents(rawCueContents);
-	}
-
-	stringToMultiline(string: string) {
-		return string.split('\n');
 	}
 
 	multilineToRawCueContent(multiline: string[]) {
@@ -53,7 +32,10 @@ export default class SrtParser {
 			const cueContent = rawCueContent.reduce(
 				(cue: Cue, string: string): Cue => {
 					const sequence = Number(string);
-					const timeStamps = this.parseTimeStamps(string);
+					const timeStamps = this.parseTimeStamps(
+						string,
+						this.timeStampMarker
+					);
 
 					if (cue.sequence === -1 && sequence) {
 						cue.sequence = sequence;
@@ -92,34 +74,5 @@ export default class SrtParser {
 
 			return cueContent;
 		});
-	}
-
-	parseTimeStamps(string: String): TimeStamps | undefined {
-		const marker = '-->';
-
-		if (string.indexOf(marker) === -1) {
-			return;
-		}
-
-		const [startTimeRaw, endTimeRaw] = string.split(marker);
-		const startTimeValues = this.splitTimeStamp(startTimeRaw);
-		const endTimeValues = this.splitTimeStamp(endTimeRaw);
-
-		return {
-			startTime: timeValuesToMilliseconds(startTimeValues),
-			endTime: timeValuesToMilliseconds(endTimeValues)
-		};
-	}
-
-	splitTimeStamp(timeStamp: string): TimeValues {
-		const [hours, minutes, secondsAndMilliseconds] = timeStamp.split(':');
-		const [seconds, milliseconds] = secondsAndMilliseconds.split(',');
-
-		return {
-			hours: Number(hours),
-			minutes: Number(minutes),
-			seconds: Number(seconds),
-			milliseconds: Number(milliseconds)
-		};
 	}
 }
