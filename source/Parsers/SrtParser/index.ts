@@ -9,27 +9,12 @@ export default class SrtParser extends Parser {
 		const multiline = this.stringToMultiline(string);
 		const rawCueContents = this.multilineToRawCueContent(multiline);
 
-		return this.parseCueContents(rawCueContents);
+		return this.parseCueData(rawCueContents);
 	}
 
-	multilineToRawCueContent(multiline: string[]) {
-		return multiline.reduce(
-			(cueAccumulator: Array<string[]>, currentLine: string) => {
-				if (currentLine === '') {
-					cueAccumulator.push([]);
-				} else {
-					cueAccumulator[cueAccumulator.length - 1].push(currentLine);
-				}
-
-				return cueAccumulator;
-			},
-			[[]]
-		);
-	}
-
-	parseCueContents(rawCueContents: Array<string[]>) {
-		return rawCueContents.map(rawCueContent => {
-			const cueContent = rawCueContent.reduce(
+	parseCueData(rawCueData: Array<string[]>) {
+		return rawCueData.map(rawCue => {
+			const cueContent = rawCue.reduce(
 				(cue: Cue, string: string): Cue => {
 					const sequence = Number(string);
 					const timeStamps = this.parseTimeStamps(

@@ -26,6 +26,21 @@ export default class Parser {
 		return string.split('\n');
 	}
 
+	multilineToRawCueContent(multiline: string[]) {
+		return multiline.reduce(
+			(cueAccumulator: Array<string[]>, currentLine: string) => {
+				if (currentLine === '') {
+					cueAccumulator.push([]);
+				} else {
+					cueAccumulator[cueAccumulator.length - 1].push(currentLine);
+				}
+
+				return cueAccumulator;
+			},
+			[[]]
+		);
+	}
+
 	parseTimeStamps(timeStamp: String, marker: string): TimeStamps | undefined {
 		if (timeStamp.indexOf(marker) === -1) {
 			return;

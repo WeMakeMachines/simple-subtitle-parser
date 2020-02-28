@@ -12,6 +12,27 @@ on the stone`;
 		});
 	});
 
+	describe('multilineToRawCueContent should', () => {
+		test('recognise the empty break between the 2 cues, resulting in an array of 2 arrays', () => {
+			const parser = new Parser();
+			const multiline = [
+				'1',
+				'00:01:48,108 --> 00:01:51,443',
+				'Text',
+				'',
+				'2',
+				'00:01:56,699 --> 00:01:59,827',
+				'More text'
+			];
+			const result = parser.multilineToRawCueContent(multiline);
+
+			expect(result).toEqual([
+				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
+				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
+			]);
+		});
+	});
+
 	describe('parseTimeStamps should', () => {
 		test('return undefined if the string does not contain a valid timestamp marker', () => {
 			const parser = new Parser();

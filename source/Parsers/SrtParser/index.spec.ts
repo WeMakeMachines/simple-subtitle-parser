@@ -1,31 +1,10 @@
 import SrtParser from './index';
 
 describe('SrtParser', () => {
-	describe('multilineToRawCueContent should', () => {
-		test('recognise the empty break between the 2 cues, resulting in an array of 2 arrays', () => {
-			const srtParser = new SrtParser();
-			const multiline = [
-				'1',
-				'00:01:48,108 --> 00:01:51,443',
-				'Text',
-				'',
-				'2',
-				'00:01:56,699 --> 00:01:59,827',
-				'More text'
-			];
-			const result = srtParser.multilineToRawCueContent(multiline);
-
-			expect(result).toEqual([
-				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
-				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
-			]);
-		});
-	});
-
-	describe('parseCueContents should', () => {
+	describe('parseCueData should', () => {
 		test('map the array of arrays into an array of objects, with the properties correctly identified', () => {
 			const srtParser = new SrtParser();
-			const result = srtParser.parseCueContents([
+			const result = srtParser.parseCueData([
 				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
 				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
 			]);
@@ -46,9 +25,9 @@ describe('SrtParser', () => {
 			]);
 		});
 
-		test('Should not find a sequence marker, if one has already been set', () => {
+		test('Should not confuse a numeric caption for a sequence marker', () => {
 			const srtParser = new SrtParser();
-			const result = srtParser.parseCueContents([
+			const result = srtParser.parseCueData([
 				['1', '00:01:48,108 --> 00:01:51,443', '12']
 			]);
 
@@ -66,7 +45,7 @@ describe('SrtParser', () => {
 			const srtParser = new SrtParser();
 
 			expect(() => {
-				srtParser.parseCueContents([
+				srtParser.parseCueData([
 					['1x', '00:01:48,108 --> 00:01:51,443', 'Text']
 				]);
 			}).toThrowError();
@@ -76,7 +55,7 @@ describe('SrtParser', () => {
 			const srtParser = new SrtParser();
 
 			expect(() => {
-				srtParser.parseCueContents([
+				srtParser.parseCueData([
 					['1', '00:01:51,443 --> 00:01:48,108', 'Text']
 				]);
 			}).toThrowError();
