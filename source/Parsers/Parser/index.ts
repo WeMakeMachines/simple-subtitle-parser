@@ -1,27 +1,11 @@
-import { timeValuesToMilliseconds } from '../../lib/time';
-
-export interface Cue {
-	sequence: number;
-	startTime: number;
-	endTime: number;
-	text: string[];
-}
-
-export interface TimeStamps {
-	startTime: number;
-	endTime: number;
-}
-
-export interface TimeValues {
-	hours: number;
-	minutes: number;
-	seconds: number;
-	milliseconds: number;
-}
+import TimeStamps from '../../lib/TimeStamps/index';
+import { Cue } from '../../Constants/Interfaces';
 
 class ParserError extends Error {}
 
 export default class Parser {
+	public timeStampMarker = '-->';
+
 	stringToMultiline(string: string) {
 		return string.split('\n');
 	}
@@ -41,43 +25,46 @@ export default class Parser {
 		);
 	}
 
-	parseTimeStamps(timeStamp: String, marker: string): TimeStamps | undefined {
-		if (timeStamp.indexOf(marker) === -1) {
-			return;
-		}
+	parseCueData(rawCueData: Array<string[]>) {
+		return rawCueData.map((rawCue, rawCueIndex) => {
+			const cueContent = rawCue.reduce(
+				(cue: Cue, string: string, index: number): Cue => {
+					// Ignore cue identifier
+					if (index === 0 && !string.includes(this.timeStampMarker)) {
+						return cue;
+					}
 
-		const [startTimeRaw, endTimeRaw] = timeStamp.split(marker);
-		const startTimeValues = this.splitTimeStamp(startTimeRaw);
-		const endTimeValues = this.splitTimeStamp(endTimeRaw);
+					if (!cue.endTime && string.includes(this.timeStampMarker)) {
+						const timeStamps = TimeStamps.parseTimeStamps(
+							string,
+							this.timeStampMarker
+						);
 
-		return {
-			startTime: timeValuesToMilliseconds(startTimeValues),
-			endTime: timeValuesToMilliseconds(endTimeValues)
-		};
-	}
+						if (timeStamps) {
+							cue.startTime = timeStamps.startTime;
+							cue.endTime = timeStamps.endTime;
+						}
 
-	splitTimeStamp(timeStamp: string): TimeValues {
-		const [hours, minutes, secondsAndMilliseconds] = timeStamp.split(':');
+						return cue;
+					}
 
-		const millisecondSeparator = secondsAndMilliseconds.includes(',')
-			? ','
-			: secondsAndMilliseconds.includes('.')
-			? '.'
-			: '';
+					cue.text.push(string);
 
-		if (millisecondSeparator === '') {
-			throw new ParserError('Unable to process timestamp');
-		}
+					return cue;
+				},
+				{
+					sequence: rawCueIndex,
+					startTime: 0,
+					endTime: 0,
+					text: []
+				}
+			);
 
-		const [seconds, milliseconds] = secondsAndMilliseconds.split(
-			millisecondSeparator
-		);
+			if (cueContent.endTime <= cueContent.startTime) {
+				throw new ParserError('Invalid Cue: Timecodes not valid');
+			}
 
-		return {
-			hours: Number(hours),
-			minutes: Number(minutes),
-			seconds: Number(seconds),
-			milliseconds: Number(milliseconds)
-		};
+			return cueContent;
+		});
 	}
 }
