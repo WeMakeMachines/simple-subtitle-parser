@@ -13,7 +13,7 @@ on the stone`;
 	});
 
 	describe('multilineToRawCueContent should', () => {
-		test('recognise the empty break between the 2 cues, resulting in an array of 2 arrays', () => {
+		test('recognise the empty breaks in the SRT sample and output an array of arrays', () => {
 			const parser = new Parser();
 			const multiline = [
 				'1',
@@ -31,43 +31,131 @@ on the stone`;
 				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
 			]);
 		});
-	});
 
-	describe('parseTimeStamps should', () => {
-		test('return undefined if the string does not contain a valid timestamp marker', () => {
+		test('', () => {
 			const parser = new Parser();
-			const string = '';
-			const result = parser.parseTimeStamps(string, '-->');
+			const multiline = [
+				'WEBVTT',
+				'',
+				'STYLE',
+				'::cue {',
+				'\tbackground-image: linear-gradient(to bottom, dimgray, lightgray);',
+				'\tcolor: papayawhip;',
+				'}',
+				'/* Style blocks cannot use blank lines nor "dash dash greater than" */',
+				'',
+				'NOTE comment blocks can be used between style blocks.',
+				'',
+				'STYLE',
+				'::cue(b) {',
+				'\tcolor: peachpuff;',
+				'}',
+				'',
+				'1',
+				'00:00:00.000 --> 00:00:10.000',
+				'- Hello <b>world</b>.',
+				'',
+				'NOTE style blocks cannot appear after the first cue.'
+			];
+			const result = parser.multilineToRawCueContent(multiline);
 
-			expect(result).toEqual(undefined);
+			expect(result).toEqual([
+				['WEBVTT'],
+				[
+					'STYLE',
+					'::cue {',
+					'\tbackground-image: linear-gradient(to bottom, dimgray, lightgray);',
+					'\tcolor: papayawhip;',
+					'}',
+					'/* Style blocks cannot use blank lines nor "dash dash greater than" */'
+				],
+				['NOTE comment blocks can be used between style blocks.'],
+				['STYLE', '::cue(b) {', '\tcolor: peachpuff;', '}'],
+				['1', '00:00:00.000 --> 00:00:10.000', '- Hello <b>world</b>.'],
+				['NOTE style blocks cannot appear after the first cue.']
+			]);
 		});
 	});
 
-	describe('splitTimeStamp should', () => {
-		test('return an object of 0 hours, 1 minute, 51 seconds, 611 milliseconds', () => {
+	describe('parseCueData should', () => {
+		test('map the array of arrays into an array of objects, with the properties correctly identified', () => {
 			const parser = new Parser();
-			const string = '00:01:51,611';
-			const result = parser.splitTimeStamp(string);
+			const result = parser.parseCueData([
+				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
+				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
+			]);
 
-			expect(result).toEqual({
-				hours: 0,
-				minutes: 1,
-				seconds: 51,
-				milliseconds: 611
-			});
+			expect(result).toEqual([
+				{
+					sequence: 0,
+					startTime: 108108,
+					endTime: 111443,
+					text: ['Text']
+				},
+				{
+					sequence: 1,
+					startTime: 116699,
+					endTime: 119827,
+					text: ['More text']
+				}
+			]);
 		});
 
-		test('return an object of 0 hours, 1 minute, 51 seconds, 611 milliseconds, where seconds > milliseconds is split with a .', () => {
+		test('Should not confuse a numeric caption for a sequence marker', () => {
 			const parser = new Parser();
-			const string = '00:01:51.611';
-			const result = parser.splitTimeStamp(string);
+			const result = parser.parseCueData([
+				['1', '00:01:48,108 --> 00:01:51,443', '12']
+			]);
 
-			expect(result).toEqual({
-				hours: 0,
-				minutes: 1,
-				seconds: 51,
-				milliseconds: 611
-			});
+			expect(result).toEqual([
+				{
+					sequence: 0,
+					startTime: 108108,
+					endTime: 111443,
+					text: ['12']
+				}
+			]);
+		});
+
+		test('correctly map if the WebVTT does not include the optional cue identifier', () => {
+			const parser = new Parser();
+			const result = parser.parseCueData([
+				['00:01:48,108 --> 00:01:51,443', 'Text'],
+				['00:01:56,699 --> 00:01:59,827', 'More text']
+			]);
+
+			expect(result).toEqual([
+				{
+					sequence: 0,
+					startTime: 108108,
+					endTime: 111443,
+					text: ['Text']
+				},
+				{
+					sequence: 1,
+					startTime: 116699,
+					endTime: 119827,
+					text: ['More text']
+				}
+			]);
+		});
+
+		test('Throw error if the start time is greater than the end time', () => {
+			const parser = new Parser();
+
+			expect(() => {
+				parser.parseCueData([
+					['1', '00:01:51,443 --> 00:01:48,108', 'Text']
+				]);
+			}).toThrowError();
+		});
+
+		test('Throw error if the start time is the same as the end time', () => {
+			const parser = new Parser();
+
+			expect(() => {
+				parser.parseCueData([['1', '0 --> 0', 'Text']]);
+			}).toThrowError();
 		});
 	});
 });
