@@ -1,64 +1,67 @@
 import SrtParser from './index';
 
 describe('SrtParser', () => {
-	describe('parseCueData should', () => {
-		test('map the array of arrays into an array of objects, with the properties correctly identified', () => {
+	describe('parse', () => {
+		test('should correctly parse the SRT sample', () => {
+			const sample = `1
+00:02:17,440 --> 00:02:20,375
+Senator, we're making
+our final approach into Coruscant.
+
+2
+00:02:20,476 --> 00:02:22,501
+Very good, Lieutenant.`;
+
 			const srtParser = new SrtParser();
-			const result = srtParser.parseCueData([
-				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
-				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
-			]);
+			const result = srtParser.parse(sample);
 
 			expect(result).toEqual([
 				{
-					sequence: 1,
-					startTime: 108108,
-					endTime: 111443,
-					text: ['Text']
+					sequence: 0,
+					startTime: 137440,
+					endTime: 140375,
+					text: [
+						"Senator, we're making",
+						'our final approach into Coruscant.'
+					]
 				},
 				{
-					sequence: 2,
-					startTime: 116699,
-					endTime: 119827,
-					text: ['More text']
+					sequence: 1,
+					startTime: 140476,
+					endTime: 142501,
+					text: ['Very good, Lieutenant.']
 				}
 			]);
 		});
 
-		test('Should not confuse a numeric caption for a sequence marker', () => {
+		test('should correctly parse the SRT sample', () => {
+			const sample = `00:02:17,440 --> 00:02:20,375
+Senator, we're making
+our final approach into Coruscant.
+
+00:02:20,476 --> 00:02:22,501
+Very good, Lieutenant.`;
+
 			const srtParser = new SrtParser();
-			const result = srtParser.parseCueData([
-				['1', '00:01:48,108 --> 00:01:51,443', '12']
-			]);
+			const result = srtParser.parse(sample);
 
 			expect(result).toEqual([
 				{
+					sequence: 0,
+					startTime: 137440,
+					endTime: 140375,
+					text: [
+						"Senator, we're making",
+						'our final approach into Coruscant.'
+					]
+				},
+				{
 					sequence: 1,
-					startTime: 108108,
-					endTime: 111443,
-					text: ['12']
+					startTime: 140476,
+					endTime: 142501,
+					text: ['Very good, Lieutenant.']
 				}
 			]);
-		});
-
-		test('Throw if no valid index is found', () => {
-			const srtParser = new SrtParser();
-
-			expect(() => {
-				srtParser.parseCueData([
-					['1x', '00:01:48,108 --> 00:01:51,443', 'Text']
-				]);
-			}).toThrowError();
-		});
-
-		test('Throw if the start time is greater than the end time', () => {
-			const srtParser = new SrtParser();
-
-			expect(() => {
-				srtParser.parseCueData([
-					['1', '00:01:51,443 --> 00:01:48,108', 'Text']
-				]);
-			}).toThrowError();
 		});
 	});
 });
