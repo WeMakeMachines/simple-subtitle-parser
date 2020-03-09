@@ -7,7 +7,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "test": "jest",
-    "tsc": "tsc",
+    "compile": "tsc",
     "prettier": "prettier --write 'source/**/*.ts'"
   },
   "repository": {
