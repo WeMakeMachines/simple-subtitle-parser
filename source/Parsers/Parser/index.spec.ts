@@ -1,18 +1,18 @@
 import Parser from './index';
 
 describe('Parser', () => {
-	describe('stringToMultiline should', () => {
+	describe('processStringToArray should', () => {
 		test('split the 2 line string into an array of 2 items', () => {
 			const parser = new Parser();
 			const string = `Something was written
 on the stone`;
-			const result = parser.stringToMultiline(string);
+			const result = parser.processStringToArray(string);
 
 			expect(result).toEqual(['Something was written', 'on the stone']);
 		});
 	});
 
-	describe('multilineToRawCueContent should', () => {
+	describe('processArrayToArrayBlocks should', () => {
 		test('recognise the empty breaks in the SRT sample and output an array of arrays', () => {
 			const parser = new Parser();
 			const multiline = [
@@ -24,7 +24,7 @@ on the stone`;
 				'00:01:56,699 --> 00:01:59,827',
 				'More text'
 			];
-			const result = parser.multilineToRawCueContent(multiline);
+			const result = parser.processArrayToArrayBlocks(multiline);
 
 			expect(result).toEqual([
 				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
@@ -57,7 +57,7 @@ on the stone`;
 				'',
 				'NOTE style blocks cannot appear after the first cue.'
 			];
-			const result = parser.multilineToRawCueContent(multiline);
+			const result = parser.processArrayToArrayBlocks(multiline);
 
 			expect(result).toEqual([
 				['WEBVTT'],
@@ -77,10 +77,10 @@ on the stone`;
 		});
 	});
 
-	describe('dropInvalidCueData', () => {
+	describe('dropEmptyArrayBlocks', () => {
 		test('should drop empty raw cues', () => {
 			const parser = new Parser();
-			const result = parser.dropInvalidCueData([
+			const result = parser.dropEmptyArrayBlocks([
 				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
 				[],
 				['2', '00:01:56,699 --> 00:01:59,827', 'More text'],
@@ -95,10 +95,10 @@ on the stone`;
 		})
 	});
 
-	describe('parseCueData should', () => {
+	describe('processArrayBlocksToCues should', () => {
 		test('map the array of arrays into an array of objects, with the properties correctly identified', () => {
 			const parser = new Parser();
-			const result = parser.parseCueData([
+			const result = parser.processArrayBlocksToCues([
 				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
 				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
 			]);
@@ -121,7 +121,7 @@ on the stone`;
 
 		test('Should not confuse a numeric caption for a sequence marker', () => {
 			const parser = new Parser();
-			const result = parser.parseCueData([
+			const result = parser.processArrayBlocksToCues([
 				['1', '00:01:48,108 --> 00:01:51,443', '12']
 			]);
 
@@ -137,7 +137,7 @@ on the stone`;
 
 		test('correctly map if the WebVTT does not include the optional cue identifier', () => {
 			const parser = new Parser();
-			const result = parser.parseCueData([
+			const result = parser.processArrayBlocksToCues([
 				['00:01:48,108 --> 00:01:51,443', 'Text'],
 				['00:01:56,699 --> 00:01:59,827', 'More text']
 			]);
@@ -162,7 +162,7 @@ on the stone`;
 			const parser = new Parser();
 
 			expect(() => {
-				parser.parseCueData([
+				parser.processArrayBlocksToCues([
 					['1', '00:01:51,443 --> 00:01:48,108', 'Text']
 				]);
 			}).toThrowError();
@@ -172,7 +172,7 @@ on the stone`;
 			const parser = new Parser();
 
 			expect(() => {
-				parser.parseCueData([['1', '0 --> 0', 'Text']]);
+				parser.processArrayBlocksToCues([['1', '0 --> 0', 'Text']]);
 			}).toThrowError();
 		});
 	});

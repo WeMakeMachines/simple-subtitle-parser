@@ -6,32 +6,32 @@ class ParserError extends Error {}
 export default class Parser {
 	public timeStampMarker = '-->';
 
-	stringToMultiline(string: string) {
+	processStringToArray(string: string) {
 		return string.split('\n');
 	}
 
-	multilineToRawCueContent(multiline: string[]) {
-		return multiline.reduce(
-			(cueAccumulator: Array<string[]>, currentLine: string) => {
+	processArrayToArrayBlocks(array: string[]) {
+		return array.reduce(
+			(arrayBlockAccumulator: Array<string[]>, currentLine: string) => {
 				if (currentLine === '') {
-					cueAccumulator.push([]);
+					arrayBlockAccumulator.push([]);
 				} else {
-					cueAccumulator[cueAccumulator.length - 1].push(currentLine);
+					arrayBlockAccumulator[arrayBlockAccumulator.length - 1].push(currentLine);
 				}
 
-				return cueAccumulator;
+				return arrayBlockAccumulator;
 			},
 			[[]]
 		);
 	}
 
-	dropInvalidCueData(rawCueData: Array<string[]>) {
-		return rawCueData.filter((rawCue) => rawCue.length);
+	dropEmptyArrayBlocks(arrayBlocks: Array<string[]>) {
+		return arrayBlocks.filter((arrayBlock) => arrayBlock.length);
 	}
 
-	parseCueData(rawCueData: Array<string[]>) {
-		return rawCueData.map((rawCue, rawCueIndex) => {
-			const cueContent = rawCue.reduce(
+	processArrayBlocksToCues(arrayBlocks: Array<string[]>) {
+		return arrayBlocks.map((block, blockIndex) => {
+			const processedCue = block.reduce(
 				(cue: Cue, string: string, index: number): Cue => {
 					// Ignore cue identifier
 					if (index === 0 && !string.includes(this.timeStampMarker)) {
@@ -57,18 +57,18 @@ export default class Parser {
 					return cue;
 				},
 				{
-					sequence: rawCueIndex,
+					sequence: blockIndex,
 					startTime: 0,
 					endTime: 0,
 					text: []
 				}
 			);
 
-			if (cueContent.endTime <= cueContent.startTime) {
+			if (processedCue.endTime <= processedCue.startTime) {
 				throw new ParserError('Invalid Cue: Timecodes not valid');
 			}
 
-			return cueContent;
+			return processedCue;
 		});
 	}
 }

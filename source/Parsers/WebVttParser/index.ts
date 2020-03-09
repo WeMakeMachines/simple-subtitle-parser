@@ -3,12 +3,12 @@ import Parser from '../Parser/index';
 
 export default class WebVttParser extends Parser {
 	parse(string: string): Cue[] {
-		const multiline = this.stringToMultiline(string);
-		const allRawCueData = this.multilineToRawCueContent(multiline);
-		const rawCueData = this.dropInvalidCueData(allRawCueData);
+		const multiline = this.processStringToArray(string);
+		const allRawCueData = this.processArrayToArrayBlocks(multiline);
+		const rawCueData = this.dropEmptyArrayBlocks(allRawCueData);
 		const filteredCueData = this.dropNonCueData(rawCueData);
 
-		return this.parseCueData(filteredCueData);
+		return this.processArrayBlocksToCues(filteredCueData);
 	}
 
 	dropNonCueData(rawCueData: Array<string[]>) {
