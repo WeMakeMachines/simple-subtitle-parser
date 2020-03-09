@@ -25,6 +25,10 @@ export default class Parser {
 		);
 	}
 
+	dropInvalidCueData(rawCueData: Array<string[]>) {
+		return rawCueData.filter((rawCue) => rawCue.length);
+	}
+
 	parseCueData(rawCueData: Array<string[]>) {
 		return rawCueData.map((rawCue, rawCueIndex) => {
 			const cueContent = rawCue.reduce(
