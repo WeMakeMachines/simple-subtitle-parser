@@ -32,7 +32,7 @@ on the stone`;
 			]);
 		});
 
-		test('', () => {
+		test('recognise the empty breaks in the WebVTT sample and output an array of arrays', () => {
 			const parser = new Parser();
 			const multiline = [
 				'WEBVTT',
