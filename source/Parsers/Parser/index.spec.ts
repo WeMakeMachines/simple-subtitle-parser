@@ -77,6 +77,24 @@ on the stone`;
 		});
 	});
 
+	describe('dropInvalidCueData', () => {
+		test('should drop empty raw cues', () => {
+			const parser = new Parser();
+			const result = parser.dropInvalidCueData([
+				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
+				[],
+				['2', '00:01:56,699 --> 00:01:59,827', 'More text'],
+				[],
+				[]
+			]);
+
+			expect(result).toEqual([
+				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
+				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
+			]);
+		})
+	});
+
 	describe('parseCueData should', () => {
 		test('map the array of arrays into an array of objects, with the properties correctly identified', () => {
 			const parser = new Parser();
