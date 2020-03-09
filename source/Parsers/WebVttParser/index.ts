@@ -5,9 +5,10 @@ export default class WebVttParser extends Parser {
 	parse(string: string): Cue[] {
 		const multiline = this.stringToMultiline(string);
 		const allRawCueData = this.multilineToRawCueContent(multiline);
-		const rawCueData = this.dropNonCueData(allRawCueData);
+		const rawCueData = this.dropInvalidCueData(allRawCueData);
+		const filteredCueData = this.dropNonCueData(rawCueData);
 
-		return this.parseCueData(rawCueData);
+		return this.parseCueData(filteredCueData);
 	}
 
 	dropNonCueData(rawCueData: Array<string[]>) {
