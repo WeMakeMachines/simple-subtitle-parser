@@ -92,7 +92,7 @@ on the stone`;
 				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
 				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
 			]);
-		})
+		});
 	});
 
 	describe('processArrayBlocksToCues should', () => {

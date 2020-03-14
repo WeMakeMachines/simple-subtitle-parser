@@ -16,7 +16,9 @@ export default class Parser {
 				if (currentLine === '') {
 					arrayBlockAccumulator.push([]);
 				} else {
-					arrayBlockAccumulator[arrayBlockAccumulator.length - 1].push(currentLine);
+					arrayBlockAccumulator[
+						arrayBlockAccumulator.length - 1
+					].push(currentLine);
 				}
 
 				return arrayBlockAccumulator;
@@ -26,7 +28,7 @@ export default class Parser {
 	}
 
 	dropEmptyArrayBlocks(arrayBlocks: Array<string[]>) {
-		return arrayBlocks.filter((arrayBlock) => arrayBlock.length);
+		return arrayBlocks.filter(arrayBlock => arrayBlock.length);
 	}
 
 	processArrayBlocksToCues(arrayBlocks: Array<string[]>) {
