@@ -7,10 +7,16 @@ export enum Formats {
 }
 
 export const parser = (format: Formats, string: string) => {
-	switch (format) {
-		case Formats.Srt:
-			return new SrtParser().parse(string);
-		case Formats.WebVtt:
-			return new WebVttParser().parse(string);
-	}
+	return new Promise((resolve, reject) => {
+		const parser =
+			format === Formats.WebVtt ? new WebVttParser() : new SrtParser();
+
+		try {
+			const parsed = parser.parse(string);
+
+			resolve(parsed);
+		} catch (error) {
+			reject(error);
+		}
+	});
 };
