@@ -7,7 +7,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "test": "jest",
-    "compile": "tsc",
+    "tsc": "tsc",
+    "build": "rollup --config",
     "prettier": "prettier --write 'source/**/*.ts'"
   },
   "repository": {
@@ -18,13 +19,15 @@
     "url": "https://github.com/WeMakeMachines/subtitle-parsing-tool/issues"
   },
   "homepage": "https://github.com/WeMakeMachines/subtitle-parsing-tool#readme",
-  "dependencies": {
-    "typescript": "^3.8.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^25.1.4",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
-    "ts-jest": "^25.2.1"
+    "rollup": "^2.0.6",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^25.2.1",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   }
 }
