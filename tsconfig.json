@@ -2,7 +2,7 @@
   "compilerOptions": {
     "lib": [ "es2015" ],
     "target": "es5",
-    "types": [],
+    "types":  [ "jest" ],
     "module": "commonjs",
     "moduleResolution": "Node",
     "outDir": "./lib",
@@ -19,6 +19,6 @@
     "strictPropertyInitialization": true,
     "strictFunctionTypes": true
   },
-  "include": ["source"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [ "source" ],
+  "exclude": [ "node_modules", "**/*.spec.ts" ]
 }
