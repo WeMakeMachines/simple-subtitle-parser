@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "subtitle-parsing-tool",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "author": "Franco Speziali",
   "license": "GPL-3.0",
@@ -18,6 +18,13 @@
   "bugs": {
     "url": "https://github.com/WeMakeMachines/subtitle-parsing-tool/issues"
   },
+  "keywords": [
+    "srt",
+    "webvtt",
+    "promise",
+    "async",
+    "subtitle"
+  ],
   "homepage": "https://github.com/WeMakeMachines/subtitle-parsing-tool#readme",
   "dependencies": {},
   "devDependencies": {
