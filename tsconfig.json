@@ -5,7 +5,7 @@
     "types":  [ "jest" ],
     "module": "commonjs",
     "moduleResolution": "Node",
-    "outDir": "./lib",
+    "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
     "inlineSourceMap": true,

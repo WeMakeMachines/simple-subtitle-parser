@@ -5,6 +5,7 @@
   "description": "",
   "author": "Franco Speziali",
   "license": "GPL-3.0",
+  "main": "dist/subtitle-parsing-tool.js",
   "scripts": {
     "test": "jest",
     "tsc": "tsc",
