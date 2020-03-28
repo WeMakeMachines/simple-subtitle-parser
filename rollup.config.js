@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript';
+import { uglify } from 'rollup-plugin-uglify';
 
 export default {
     input: 'source/index.ts',
@@ -7,6 +8,7 @@ export default {
         format: 'cjs'
     },
     plugins: [
-        typescript()
+        typescript(),
+        uglify()
     ]
 };
