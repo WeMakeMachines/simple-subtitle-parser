@@ -1,4 +1,3 @@
-import { TimeStamp } from '../../types';
 import { timeValuesToMilliseconds } from '../time';
 
 export interface TimeValues {
@@ -6,6 +5,11 @@ export interface TimeValues {
 	minutes: number;
 	seconds: number;
 	milliseconds: number;
+}
+
+export interface TimeStamp {
+	startTime: number;
+	endTime: number;
 }
 
 class TimeStampsError extends Error {}
