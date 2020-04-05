@@ -1,5 +1,5 @@
+import { TimeStamp } from '../../types';
 import { timeValuesToMilliseconds } from '../time';
-import { TimeStamp } from '../../interfaces';
 
 export interface TimeValues {
 	hours: number;

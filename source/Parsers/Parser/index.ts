@@ -1,5 +1,5 @@
+import { Cue } from '../../types';
 import TimeStamps from '../../lib/TimeStamps/index';
-import { Cue } from '../../interfaces';
 
 class ParserError extends Error {}
 

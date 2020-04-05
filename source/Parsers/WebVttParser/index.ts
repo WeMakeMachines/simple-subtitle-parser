@@ -1,4 +1,4 @@
-import { Cue } from '../../interfaces';
+import { Cue } from '../../types';
 import Parser from '../Parser/index';
 
 export default class WebVttParser extends Parser {

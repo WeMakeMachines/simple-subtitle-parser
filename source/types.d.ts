@@ -9,3 +9,8 @@ export interface TimeStamp {
 	startTime: number;
 	endTime: number;
 }
+
+export enum Formats {
+	Srt = 'SRT',
+	WebVtt = 'WEBVTT'
+}
