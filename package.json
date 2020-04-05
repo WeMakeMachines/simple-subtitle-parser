@@ -31,16 +31,16 @@
   "homepage": "https://github.com/WeMakeMachines/subtitle-parsing-tool#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/jest": "^25.1.4",
+    "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "eslint": "^6.8.0",
-    "jest": "^25.2.3",
+    "jest": "^25.2.7",
     "prettier": "^1.19.1",
-    "rollup": "^2.2.0",
+    "rollup": "^2.3.3",
     "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-uglify": "^6.0.4",
-    "ts-jest": "^25.2.1",
+    "ts-jest": "^25.3.1",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3"
   }
