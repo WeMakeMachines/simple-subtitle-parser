@@ -1,4 +1,4 @@
-import { Cue } from '../../Constants/Interfaces';
+import { Cue } from '../../interfaces';
 import Parser from '../Parser/index';
 
 export default class WebVttParser extends Parser {
@@ -11,7 +11,7 @@ export default class WebVttParser extends Parser {
 		return this.processArrayBlocksToCues(filteredCueData);
 	}
 
-	dropNonCueData(rawCueData: Array<string[]>) {
+	dropNonCueData(rawCueData: Array<string[]>): Array<string[]> {
 		return rawCueData.filter(cueData => {
 			const [header] = cueData;
 			const isValidData = !(

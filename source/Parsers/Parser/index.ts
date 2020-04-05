@@ -1,16 +1,16 @@
 import TimeStamps from '../../lib/TimeStamps/index';
-import { Cue } from '../../Constants/Interfaces';
+import { Cue } from '../../interfaces';
 
 class ParserError extends Error {}
 
 export default class Parser {
 	public timeStampMarker = '-->';
 
-	processStringToArray(string: string) {
+	processStringToArray(string: string): string[] {
 		return string.split('\n');
 	}
 
-	processArrayToArrayBlocks(array: string[]) {
+	processArrayToArrayBlocks(array: string[]): Array<string[]> {
 		return array.reduce(
 			(arrayBlockAccumulator: Array<string[]>, currentLine: string) => {
 				if (currentLine === '') {
@@ -27,11 +27,11 @@ export default class Parser {
 		);
 	}
 
-	dropEmptyArrayBlocks(arrayBlocks: Array<string[]>) {
+	dropEmptyArrayBlocks(arrayBlocks: Array<string[]>): Array<string[]> {
 		return arrayBlocks.filter(arrayBlock => arrayBlock.length);
 	}
 
-	processArrayBlocksToCues(arrayBlocks: Array<string[]>) {
+	processArrayBlocksToCues(arrayBlocks: Array<string[]>): Cue[] {
 		return arrayBlocks.map((block, blockIndex) => {
 			const processedCue = block.reduce(
 				(cue: Cue, string: string, index: number): Cue => {
