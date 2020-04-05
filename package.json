@@ -23,9 +23,10 @@
   "keywords": [
     "srt",
     "webvtt",
+    "subtitle",
     "promise",
     "async",
-    "subtitle"
+    "typescript"
   ],
   "homepage": "https://github.com/WeMakeMachines/subtitle-parsing-tool#readme",
   "dependencies": {},
