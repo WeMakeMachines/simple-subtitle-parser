@@ -1,4 +1,4 @@
-import WebVttParser from './index';
+import WebVttParser from './';
 
 describe('WebVttParser', () => {
 	describe('parse', () => {

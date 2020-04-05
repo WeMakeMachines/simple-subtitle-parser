@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript';
+import typescript from "@wessberg/rollup-plugin-ts";
 import { uglify } from 'rollup-plugin-uglify';
 
 export default {

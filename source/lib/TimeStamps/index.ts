@@ -1,5 +1,4 @@
-import { timeValuesToMilliseconds } from '../time/index';
-import { TimeStamp } from '../../Constants/Interfaces';
+import { timeValuesToMilliseconds } from '../time';
 
 export interface TimeValues {
 	hours: number;
@@ -8,11 +7,16 @@ export interface TimeValues {
 	milliseconds: number;
 }
 
+export interface TimeStamp {
+	startTime: number;
+	endTime: number;
+}
+
 class TimeStampsError extends Error {}
 
 export default class TimeStamps {
 	static parseTimeStamps(
-		string: String,
+		string: string,
 		marker: string
 	): TimeStamp | undefined {
 		const [startTimeRaw, endTimeRaw] = string.split(marker);

@@ -1,12 +1,8 @@
+import { Cue, Formats } from './types';
 import SrtParser from './Parsers/SrtParser';
 import WebVttParser from './Parsers/WebVttParser';
 
-export enum Formats {
-	Srt = 'SRT',
-	WebVtt = 'WEBVTT'
-}
-
-export const parser = (format: Formats, string: string) => {
+export const parser = (format: Formats, string: string): Promise<Cue[]> => {
 	return new Promise((resolve, reject) => {
 		const parser =
 			format === Formats.WebVtt ? new WebVttParser() : new SrtParser();

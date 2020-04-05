@@ -1,4 +1,4 @@
-import { timeValuesToMilliseconds } from './index';
+import { timeValuesToMilliseconds } from './';
 
 describe('time library', () => {
 	describe('timeValuesToMilliseconds', () => {

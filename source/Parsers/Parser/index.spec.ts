@@ -1,4 +1,4 @@
-import Parser from './index';
+import Parser from './';
 
 describe('Parser', () => {
 	describe('processStringToArray should', () => {

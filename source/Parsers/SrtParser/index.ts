@@ -1,4 +1,4 @@
-import { Cue } from '../../Constants/Interfaces';
+import { Cue } from '../../types';
 import Parser from '../Parser/index';
 
 export default class SrtParser extends Parser {
