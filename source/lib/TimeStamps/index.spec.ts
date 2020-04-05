@@ -1,4 +1,4 @@
-import TimeStamps from './index';
+import TimeStamps from './';
 
 describe('parseTimeStamps should', () => {
 	test('return undefined if the string does not contain a valid timestamp marker', () => {

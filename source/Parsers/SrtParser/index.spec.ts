@@ -1,4 +1,4 @@
-import SrtParser from './index';
+import SrtParser from './';
 
 describe('SrtParser', () => {
 	describe('parse', () => {
