@@ -11,7 +11,7 @@ export default class WebVttParser extends Parser {
 		return this.processArrayBlocksToCues(filteredCueData);
 	}
 
-	dropNonCueData(rawCueData: Array<string[]>): Array<string[]> {
+	dropNonCueData(rawCueData: string[][]): string[][] {
 		return rawCueData.filter(cueData => {
 			const [header] = cueData;
 			const isValidData = !(

@@ -4,15 +4,15 @@ import TimeStamps from '../../lib/TimeStamps/index';
 class ParserError extends Error {}
 
 export default class Parser {
-	public timeStampMarker = '-->';
+	protected timeStampMarker = '-->';
 
 	processStringToArray(string: string): string[] {
 		return string.split('\n');
 	}
 
-	processArrayToArrayBlocks(array: string[]): Array<string[]> {
+	processArrayToArrayBlocks(array: string[]): string[][] {
 		return array.reduce(
-			(arrayBlockAccumulator: Array<string[]>, currentLine: string) => {
+			(arrayBlockAccumulator: string[][], currentLine: string) => {
 				if (currentLine === '') {
 					arrayBlockAccumulator.push([]);
 				} else {
@@ -27,11 +27,11 @@ export default class Parser {
 		);
 	}
 
-	dropEmptyArrayBlocks(arrayBlocks: Array<string[]>): Array<string[]> {
+	dropEmptyArrayBlocks(arrayBlocks: string[][]): string[][] {
 		return arrayBlocks.filter(arrayBlock => arrayBlock.length);
 	}
 
-	processArrayBlocksToCues(arrayBlocks: Array<string[]>): Cue[] {
+	processArrayBlocksToCues(arrayBlocks: string[][]): Cue[] {
 		return arrayBlocks.map((block, blockIndex) => {
 			const processedCue = block.reduce(
 				(cue: Cue, string: string, index: number): Cue => {
