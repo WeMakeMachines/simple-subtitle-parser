@@ -5,6 +5,8 @@
     "types":  [ "jest" ],
     "module": "commonjs",
     "moduleResolution": "Node",
+    "importHelpers": true,
+    "rootDir": "./source",
     "outDir": "./dist",
     "declaration": true,
     "removeComments": true,
