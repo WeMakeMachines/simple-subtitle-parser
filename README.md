@@ -1,6 +1,6 @@
 # Subtitle Parsing Tool
 
-Parses subtitle files and generates a collection of timed objects.
+Parses subtitle files and generates a collection of timed objects
 
 Now includes typings!
 
@@ -15,32 +15,42 @@ Now includes typings!
 
 ## Importing
 
-Import the main parser tool as a default export. Import types as named imports.
+Import the main parser tool function as a default export
+
+Import types as named imports
 
 ##### ES6
 
-`import spt from 'subtitle-parsing-tool'`
+`import parser from 'subtitle-parsing-tool'`
 
 With types
 
-`import spt, { Cue, Formats } from 'subtitle-parsing-tool';`
+`import parser, { Cue, Formats } from 'subtitle-parsing-tool';`
 
 ##### CommonJS
 
-`const spt = require('subtitle-parsing-tool');`
+`const parser = require('subtitle-parsing-tool');`
 
 ## Usage
 
-_spt_.parser(_format_, _string_);
+**const parsedResponsePromise = _DefaultExportFunction_(_format_, _string_)**
 
 ##### Parameters
 
-**_format_** - A string value, which denotes the format of the subtitles to be parsed. Accepts 2 values:
+**_format_**
+
+A string value, which denotes the format of the subtitles to be parsed. Accepts 2 values:
     
-    - SRT
-    - WEBVTT
+- SRT
+- WEBVTT
     
-**_string_** - A string value. The raw data for the subtitles to parse.
+**_string_**
+
+A string value. The raw data for the subtitles to parse.
+
+##### Return value
+
+A `Promise` that resolves to an array of `Cue` type objects
 
 ## Exported Types
 
@@ -48,7 +58,7 @@ The following types are available:
 
 ##### Formats
 
-An exported object of strings which correspond to the supported formats.
+An exported object of strings which correspond to the supported formats
 
 __enum Formats__
 
@@ -67,12 +77,4 @@ An object of the following shape:
     endTime: number;
     text: string[];
 }
-```
-
-## Output
-
-Result is an array of Cue objects
-
-```
-[ Cue ]
 ```
