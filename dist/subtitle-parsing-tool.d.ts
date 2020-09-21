@@ -4,9 +4,9 @@ interface Cue {
     endTime: number;
     text: string[];
 }
-declare enum Formats {
+declare const enum Formats {
     Srt = "SRT",
     WebVtt = "WEBVTT"
 }
 declare const parser: (format: Formats, string: string) => Promise<Cue[]>;
-export { parser };
+export { parser as default, Cue, Formats };
