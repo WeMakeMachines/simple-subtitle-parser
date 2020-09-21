@@ -5,7 +5,7 @@ export interface Cue {
 	text: string[];
 }
 
-export enum Formats {
+export const enum Formats {
 	Srt = 'SRT',
 	WebVtt = 'WEBVTT'
 }

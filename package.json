@@ -1,12 +1,12 @@
 {
   "private": false,
   "name": "subtitle-parsing-tool",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "author": "Franco Speziali",
   "license": "GPL-3.0",
-  "main": "dist/subtitle-parsing-tool.js",
-  "types": "dist/subtitle-parsting-tool.d.ts",
+  "main": "./dist/subtitle-parsing-tool.js",
+  "types": "./dist/subtitle-parsing-tool.d.ts",
   "scripts": {
     "test": "jest",
     "eslint": "eslint . --ext .ts,.tsx",
@@ -32,17 +32,17 @@
   "homepage": "https://github.com/WeMakeMachines/subtitle-parsing-tool#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "@typescript-eslint/eslint-plugin": "^2.26.0",
-    "@typescript-eslint/parser": "^2.26.0",
-    "@wessberg/rollup-plugin-ts": "^1.2.23",
-    "eslint": "^6.8.0",
-    "jest": "^25.2.7",
-    "prettier": "^1.19.1",
-    "rollup": "^2.3.3",
-    "rollup-plugin-uglify": "^6.0.4",
-    "ts-jest": "^25.3.1",
-    "tslib": "^1.11.1",
-    "typescript": "^3.8.3"
+    "@types/jest": "^26.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "@wessberg/rollup-plugin-ts": "1.3.4",
+    "eslint": "7.9.0",
+    "jest": "26.4.2",
+    "prettier": "1.19.1",
+    "rollup": "2.27.1",
+    "rollup-plugin-uglify": "6.0.4",
+    "ts-jest": "26.4.0",
+    "tslib": "2.0.1",
+    "typescript": "4.0.3"
   }
 }

@@ -1,13 +1,13 @@
 import { timeValuesToMilliseconds } from '../time';
 
-export interface TimeValues {
+interface TimeValues {
 	hours: number;
 	minutes: number;
 	seconds: number;
 	milliseconds: number;
 }
 
-export interface TimeStamp {
+interface TimeStamp {
 	startTime: number;
 	endTime: number;
 }

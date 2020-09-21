@@ -3,10 +3,9 @@ import Parser from './';
 describe('Parser', () => {
 	describe('processStringToArray should', () => {
 		test('split the 2 line string into an array of 2 items', () => {
-			const parser = new Parser();
 			const string = `Something was written
 on the stone`;
-			const result = parser.processStringToArray(string);
+			const result = Parser.processStringToArray(string);
 
 			expect(result).toEqual(['Something was written', 'on the stone']);
 		});
@@ -14,7 +13,6 @@ on the stone`;
 
 	describe('processArrayToArrayBlocks should', () => {
 		test('recognise the empty breaks in the SRT sample and output an array of arrays', () => {
-			const parser = new Parser();
 			const multiline = [
 				'1',
 				'00:01:48,108 --> 00:01:51,443',
@@ -24,7 +22,7 @@ on the stone`;
 				'00:01:56,699 --> 00:01:59,827',
 				'More text'
 			];
-			const result = parser.processArrayToArrayBlocks(multiline);
+			const result = Parser.processArrayToArrayBlocks(multiline);
 
 			expect(result).toEqual([
 				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
@@ -33,7 +31,6 @@ on the stone`;
 		});
 
 		test('recognise the empty breaks in the WebVTT sample and output an array of arrays', () => {
-			const parser = new Parser();
 			const multiline = [
 				'WEBVTT',
 				'',
@@ -57,7 +54,7 @@ on the stone`;
 				'',
 				'NOTE style blocks cannot appear after the first cue.'
 			];
-			const result = parser.processArrayToArrayBlocks(multiline);
+			const result = Parser.processArrayToArrayBlocks(multiline);
 
 			expect(result).toEqual([
 				['WEBVTT'],
@@ -79,8 +76,7 @@ on the stone`;
 
 	describe('dropEmptyArrayBlocks', () => {
 		test('should drop empty raw cues', () => {
-			const parser = new Parser();
-			const result = parser.dropEmptyArrayBlocks([
+			const result = Parser.dropEmptyArrayBlocks([
 				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
 				[],
 				['2', '00:01:56,699 --> 00:01:59,827', 'More text'],
@@ -97,11 +93,13 @@ on the stone`;
 
 	describe('processArrayBlocksToCues should', () => {
 		test('map the array of arrays into an array of objects, with the properties correctly identified', () => {
-			const parser = new Parser();
-			const result = parser.processArrayBlocksToCues([
-				['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
-				['2', '00:01:56,699 --> 00:01:59,827', 'More text']
-			]);
+			const result = Parser.processArrayBlocksToCues(
+				[
+					['1', '00:01:48,108 --> 00:01:51,443', 'Text'],
+					['2', '00:01:56,699 --> 00:01:59,827', 'More text']
+				],
+				'-->'
+			);
 
 			expect(result).toEqual([
 				{
@@ -120,10 +118,10 @@ on the stone`;
 		});
 
 		test('Should not confuse a numeric caption for a sequence marker', () => {
-			const parser = new Parser();
-			const result = parser.processArrayBlocksToCues([
-				['1', '00:01:48,108 --> 00:01:51,443', '12']
-			]);
+			const result = Parser.processArrayBlocksToCues(
+				[['1', '00:01:48,108 --> 00:01:51,443', '12']],
+				'-->'
+			);
 
 			expect(result).toEqual([
 				{
@@ -136,11 +134,13 @@ on the stone`;
 		});
 
 		test('correctly map if the WebVTT does not include the optional cue identifier', () => {
-			const parser = new Parser();
-			const result = parser.processArrayBlocksToCues([
-				['00:01:48,108 --> 00:01:51,443', 'Text'],
-				['00:01:56,699 --> 00:01:59,827', 'More text']
-			]);
+			const result = Parser.processArrayBlocksToCues(
+				[
+					['00:01:48,108 --> 00:01:51,443', 'Text'],
+					['00:01:56,699 --> 00:01:59,827', 'More text']
+				],
+				'-->'
+			);
 
 			expect(result).toEqual([
 				{
@@ -159,20 +159,20 @@ on the stone`;
 		});
 
 		test('Throw error if the start time is greater than the end time', () => {
-			const parser = new Parser();
-
 			expect(() => {
-				parser.processArrayBlocksToCues([
-					['1', '00:01:51,443 --> 00:01:48,108', 'Text']
-				]);
+				Parser.processArrayBlocksToCues(
+					[['1', '00:01:51,443 --> 00:01:48,108', 'Text']],
+					'-->'
+				);
 			}).toThrowError();
 		});
 
 		test('Throw error if the start time is the same as the end time', () => {
-			const parser = new Parser();
-
 			expect(() => {
-				parser.processArrayBlocksToCues([['1', '0 --> 0', 'Text']]);
+				Parser.processArrayBlocksToCues(
+					[['1', '0 --> 0', 'Text']],
+					'-->'
+				);
 			}).toThrowError();
 		});
 	});

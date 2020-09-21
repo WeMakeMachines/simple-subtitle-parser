@@ -3,16 +3,17 @@ import TimeStamps from '../../lib/TimeStamps/index';
 
 class ParserError extends Error {}
 
-export default class Parser {
-	public timeStampMarker = '-->';
+export default abstract class Parser {
+	abstract timeStampMarker: string;
+	abstract parse(string: string): Cue[];
 
-	processStringToArray(string: string): string[] {
+	static processStringToArray(string: string): string[] {
 		return string.split('\n');
 	}
 
-	processArrayToArrayBlocks(array: string[]): Array<string[]> {
+	static processArrayToArrayBlocks(array: string[]): string[][] {
 		return array.reduce(
-			(arrayBlockAccumulator: Array<string[]>, currentLine: string) => {
+			(arrayBlockAccumulator: string[][], currentLine: string) => {
 				if (currentLine === '') {
 					arrayBlockAccumulator.push([]);
 				} else {
@@ -27,23 +28,26 @@ export default class Parser {
 		);
 	}
 
-	dropEmptyArrayBlocks(arrayBlocks: Array<string[]>): Array<string[]> {
+	static dropEmptyArrayBlocks(arrayBlocks: string[][]): string[][] {
 		return arrayBlocks.filter(arrayBlock => arrayBlock.length);
 	}
 
-	processArrayBlocksToCues(arrayBlocks: Array<string[]>): Cue[] {
+	static processArrayBlocksToCues(
+		arrayBlocks: string[][],
+		timeStampMarker: string
+	): Cue[] {
 		return arrayBlocks.map((block, blockIndex) => {
 			const processedCue = block.reduce(
 				(cue: Cue, string: string, index: number): Cue => {
 					// Ignore cue identifier
-					if (index === 0 && !string.includes(this.timeStampMarker)) {
+					if (index === 0 && !string.includes(timeStampMarker)) {
 						return cue;
 					}
 
-					if (!cue.endTime && string.includes(this.timeStampMarker)) {
+					if (!cue.endTime && string.includes(timeStampMarker)) {
 						const timeStamps = TimeStamps.parseTimeStamps(
 							string,
-							this.timeStampMarker
+							timeStampMarker
 						);
 
 						if (timeStamps) {
