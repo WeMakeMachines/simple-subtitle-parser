@@ -2,6 +2,8 @@
 
 Parses subtitle files and generates a collection of timed objects.
 
+Now includes typings!
+
 ## Supported subtitle files
 
 - SRT
@@ -9,53 +11,68 @@ Parses subtitle files and generates a collection of timed objects.
 
 ## Installation
 
-`npm install --save subtitle-parsing-tool`
+`npm i subtitle-parsing-tool`
 
-## Usage
+## Importing
 
-### Import
+Import the main parser tool as a default export. Import types as named imports.
 
-#### node.js
+##### ES6
+
+`import spt from 'subtitle-parsing-tool'`
+
+With types
+
+`import spt, { Cue, Formats } from 'subtitle-parsing-tool';`
+
+##### CommonJS
 
 `const spt = require('subtitle-parsing-tool');`
 
-#### ES6
+## Usage
 
-`import LoomSE from 'subtitle-parsing-tool'`
+_spt_.parser(_format_, _string_);
 
-### Parser function
+##### Parameters
 
-_spt_.parser(_subtitleFormat_, _subtitleString_);
-
-#### Parameters
-
-**_subtitleFormat_** - A string value, which denotes the format of the subtitles to be parsed. Accepts to values:
+**_format_** - A string value, which denotes the format of the subtitles to be parsed. Accepts 2 values:
     
     - SRT
     - WEBVTT
     
-**_subtitleString_** - A string value. The raw data for the subtitles to parse.
+**_string_** - A string value. The raw data for the subtitles to parse.
 
-### Formats
+## Exported Types
+
+The following types are available:
+
+##### Formats
 
 An exported object of strings which correspond to the supported formats.
 
-_spt_.Formats
+__enum Formats__
 
-    - Srt.Formats.Srt
-    - Srt.Formats.WebVtt
+```
+Formats.Srt
+Formats.WebVtt
+```
+
+__interface Cue__
+
+An object of the following shape:
+```
+{
+    sequence: number;
+    startTime: number;
+    endTime: number;
+    text: string[];
+}
+```
 
 ## Output
 
 Result is an array of Cue objects
 
 ```
-[
-    Cue {
-        sequence: number;
-        startTime: number;
-        endTime: number;
-        text: string[];
-    }
-]
+[ Cue ]
 ```
