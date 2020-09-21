@@ -17,4 +17,4 @@ const parser = (format: Formats, string: string): Promise<Cue[]> => {
 	});
 };
 
-export default parser;
+export { parser as default, Cue, Formats };
