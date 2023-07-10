@@ -1,6 +1,8 @@
-# Subtitle Parsing Tool
+# Simple Subtitle Parser
 
-Parses subtitle files and generates a collection of timed objects
+_(previously, subtitle-parsing-tool)_
+
+Zero-dependency, subtitle parser written in TypeScript. Parses subtitle files and generates a collection of timed objects.
 
 Now includes typings!
 
@@ -11,7 +13,7 @@ Now includes typings!
 
 ## Installation
 
-`npm i subtitle-parsing-tool`
+`npm i simple-subtitle-parser`
 
 ## Importing
 
@@ -21,15 +23,15 @@ Import types as named imports
 
 ##### ES6
 
-`import parser from 'subtitle-parsing-tool'`
+`import parser from 'simple-subtitle-parser`
 
 With types
 
-`import parser, { Cue, Formats } from 'subtitle-parsing-tool';`
+`import parser, { Cue, Formats } from 'simple-subtitle-parser';`
 
 ##### CommonJS
 
-`const parser = require('subtitle-parsing-tool');`
+`const parser = require('simple-subtitle-parser');`
 
 ## Usage
 

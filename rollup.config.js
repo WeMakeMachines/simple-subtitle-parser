@@ -1,12 +1,12 @@
-import typescript from '@wessberg/rollup-plugin-ts';
-import { uglify } from 'rollup-plugin-uglify';
+import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
 
 export default {
 	input: 'source/index.ts',
 	output: {
-		file: 'dist/subtitle-parsing-tool.js',
-		format: 'cjs',
+		file: 'dist/simple-subtitle-parser.js',
+		format: 'es',
 		exports: 'default'
 	},
-	plugins: [typescript(), uglify()]
+	plugins: [typescript(), terser()]
 };
