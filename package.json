@@ -9,7 +9,7 @@
   "main": "./dist/simple-subtitle-parser.js",
   "types": "./dist/simple-subtitle-parser.d.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "eslint": "eslint . --ext .ts,.tsx",
     "tsc": "tsc",
     "build": "rm -rf ./dist && mkdir dist && cp ./source/simple-subtitle-parser.d.ts ./dist/ && rollup --config",

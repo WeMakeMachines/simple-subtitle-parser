@@ -8,4 +8,5 @@ export interface Cue {
 export const enum Formats {
   Srt = "SRT",
   WebVtt = "WEBVTT",
+  Unsupported = "Unsupported",
 }

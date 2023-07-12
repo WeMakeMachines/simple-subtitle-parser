@@ -7,7 +7,12 @@ interface Cue {
 declare const enum Formats {
   Srt = "SRT",
   WebVtt = "WEBVTT",
+  Unsupported = "Unsupported",
 }
 
-declare const parser: (format: Formats, string: string) => Promise<Cue[]>;
-export { parser as default, Cue, Formats };
+declare function parser(format: Formats, string: string): Promise<Cue[]>;
+declare function extractFormatFromFileName(fileName: string): {
+  extension: string;
+  format: Formats;
+};
+export { parser, extractFormatFromFileName, Cue, Formats };
