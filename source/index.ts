@@ -43,4 +43,4 @@ function extractFormatFromFileName(fileName: string): {
   };
 }
 
-export { parser as default, extractFormatFromFileName, Cue, Formats };
+export { parser, extractFormatFromFileName, Cue, Formats };

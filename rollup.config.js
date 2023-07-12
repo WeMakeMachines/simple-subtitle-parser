@@ -1,12 +1,24 @@
-import terser from '@rollup/plugin-terser';
-import typescript from '@rollup/plugin-typescript';
+const terser = require("@rollup/plugin-terser");
+const typescript = require("@rollup/plugin-typescript");
+const pkg = require("./package.json");
 
-export default {
-	input: 'source/index.ts',
-	output: {
-		file: 'dist/simple-subtitle-parser.js',
-		format: 'es',
-		exports: 'default'
-	},
-	plugins: [typescript(), terser()]
-};
+module.exports = [
+  {
+    input: "source/index.ts",
+    output: {
+      file: pkg.main,
+      format: "cjs",
+      exports: "named",
+    },
+    plugins: [typescript(), terser()],
+  },
+  {
+    input: "source/index.ts",
+    output: {
+      file: pkg.module,
+      format: "es",
+      exports: "named",
+    },
+    plugins: [typescript(), terser()],
+  },
+];
