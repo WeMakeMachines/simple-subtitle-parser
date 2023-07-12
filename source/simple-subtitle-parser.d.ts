@@ -4,15 +4,15 @@ interface Cue {
   endTime: number;
   text: string[];
 }
-declare const enum Formats {
+declare const enum Format {
   Srt = "SRT",
   WebVtt = "WEBVTT",
   Unsupported = "Unsupported",
 }
 
-declare function parser(format: Formats, string: string): Promise<Cue[]>;
+declare function parser(format: Format, string: string): Promise<Cue[]>;
 declare function extractFormatFromFileName(fileName: string): {
   extension: string;
-  format: Formats;
+  format: Format;
 };
-export { parser, extractFormatFromFileName, Cue, Formats };
+export { parser, extractFormatFromFileName, Cue, Format };

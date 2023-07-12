@@ -1,4 +1,4 @@
-import { extractFormatFromFileName, Formats } from "./index";
+import { extractFormatFromFileName, Format } from "./index";
 
 describe("extractFormatFromFileName", () => {
   describe("should correctly extract the extension srt", () => {
@@ -8,7 +8,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("srt");
-      expect(extraction.format).toEqual(Formats.Srt);
+      expect(extraction.format).toEqual(Format.Srt);
     });
 
     test("for the filename en.subtitles.srt", () => {
@@ -17,7 +17,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("srt");
-      expect(extraction.format).toEqual(Formats.Srt);
+      expect(extraction.format).toEqual(Format.Srt);
     });
 
     test("for the filename en.subtitles.SRT", () => {
@@ -26,7 +26,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("srt");
-      expect(extraction.format).toEqual(Formats.Srt);
+      expect(extraction.format).toEqual(Format.Srt);
     });
   });
 
@@ -37,7 +37,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("vtt");
-      expect(extraction.format).toEqual(Formats.WebVtt);
+      expect(extraction.format).toEqual(Format.WebVtt);
     });
 
     test("for the filename en.subtitles.vtt", () => {
@@ -46,7 +46,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("vtt");
-      expect(extraction.format).toEqual(Formats.WebVtt);
+      expect(extraction.format).toEqual(Format.WebVtt);
     });
 
     test("for the filename en.subtitles.VTT", () => {
@@ -55,7 +55,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("vtt");
-      expect(extraction.format).toEqual(Formats.WebVtt);
+      expect(extraction.format).toEqual(Format.WebVtt);
     });
   });
 
@@ -66,7 +66,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("txt");
-      expect(extraction.format).toEqual(Formats.Unsupported);
+      expect(extraction.format).toEqual(Format.Unsupported);
     });
 
     test("for the filename subtitles.sub", () => {
@@ -75,7 +75,7 @@ describe("extractFormatFromFileName", () => {
       const extraction = extractFormatFromFileName(fileName);
 
       expect(extraction.extension).toEqual("sub");
-      expect(extraction.format).toEqual(Formats.Unsupported);
+      expect(extraction.format).toEqual(Format.Unsupported);
     });
   });
 });

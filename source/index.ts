@@ -1,11 +1,11 @@
-import { Cue, Formats } from "./types";
+import { Cue, Format } from "./types";
 import SrtParser from "./Parsers/SrtParser";
 import WebVttParser from "./Parsers/WebVttParser";
 
-function parser(format: Formats, string: string): Promise<Cue[]> {
+function parser(format: Format, string: string): Promise<Cue[]> {
   return new Promise((resolve, reject) => {
     const parser =
-      format === Formats.WebVtt ? new WebVttParser() : new SrtParser();
+      format === Format.WebVtt ? new WebVttParser() : new SrtParser();
 
     try {
       const parsed = parser.parse(string);
@@ -19,22 +19,22 @@ function parser(format: Formats, string: string): Promise<Cue[]> {
 
 function extractFormatFromFileName(fileName: string): {
   extension: string;
-  format: Formats;
+  format: Format;
 } {
   const parts = fileName.toLowerCase().split(".");
   const extension = parts[parts.length - 1];
 
-  let format: Formats | "unsupported";
+  let format: Format;
 
   switch (extension) {
     case "srt":
-      format = Formats.Srt;
+      format = Format.Srt;
       break;
     case "vtt":
-      format = Formats.WebVtt;
+      format = Format.WebVtt;
       break;
     default:
-      format = Formats.Unsupported;
+      format = Format.Unsupported;
   }
 
   return {
@@ -43,4 +43,4 @@ function extractFormatFromFileName(fileName: string): {
   };
 }
 
-export { parser, extractFormatFromFileName, Cue, Formats };
+export { parser, extractFormatFromFileName, Cue, Format };
