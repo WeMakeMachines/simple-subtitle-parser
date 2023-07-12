@@ -15,19 +15,15 @@ Now includes typings!
 
 `npm i simple-subtitle-parser`
 
-## Importing
-
-Import the main parser tool function as a default export
-
-Import types as named imports
+## Importing the parser
 
 ##### ES6
 
-`import parser from 'simple-subtitle-parser`
+`import { parser } from 'simple-subtitle-parser`
 
 With types
 
-`import parser, { Cue, Formats } from 'simple-subtitle-parser';`
+`import { parser, Cue, Format } from 'simple-subtitle-parser';`
 
 ##### CommonJS
 
@@ -35,24 +31,49 @@ With types
 
 ## Usage
 
-**const parsedResponsePromise = _DefaultExportFunction_(_format_, _string_)**
+```
+parser(format: Format, rawText: string)
+```
 
-##### Parameters
+##### Arguments
 
 **_format_**
 
-A string value, which denotes the format of the subtitles to be parsed. Accepts 2 values:
+Denotes the format of the subtitles to be parsed. Accepts 2 values:
     
 - SRT
 - WEBVTT
     
-**_string_**
+**_rawText_**
 
-A string value. The raw data for the subtitles to parse.
+The raw data for the subtitles to parse.
 
 ##### Return value
 
 A `Promise` that resolves to an array of `Cue` type objects
+
+## Exported Helpers
+
+```
+extractFormatFromFileName(fileName: string);
+```
+
+##### Arguments
+
+**_fileName_**
+
+The filename
+
+##### Return value
+
+An object of the following shape:
+
+```
+{
+    extension: string;
+    format: Format
+}
+```
 
 ## Exported Types
 
@@ -62,16 +83,17 @@ The following types are available:
 
 An exported object of strings which correspond to the supported formats
 
-__enum Formats__
+__enum Format__
 
 ```
-Formats.Srt
-Formats.WebVtt
+Format.Srt
+Format.WebVtt
+Format.Unsupported
 ```
 
 __interface Cue__
 
-An object of the following shape:
+A subtitle time encoded object of the following shape:
 ```
 {
     sequence: number;
