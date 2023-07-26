@@ -2,6 +2,10 @@
 
 _(previously, subtitle-parsing-tool)_
 
+![license](https://badgen.net/static/license/MIT/blue)
+![version](https://badgen.net/static/version/2.0.0)
+![tests](https://badgen.net/static/tests/passing/green)
+
 Zero-dependency, subtitle parser written in TypeScript. Parses subtitle files and generates a collection of timed objects.
 
 Now includes typings!
