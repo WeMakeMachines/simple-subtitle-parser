@@ -17,7 +17,12 @@ describe("WebVttParser", () => {
 16
 00:01:21.058 --> 00:01:23.868
 - [ Bats Screeching ]
-- They won't get in your hair. They're after the bugs.`;
+- They won't get in your hair. They're after the bugs.
+
+1942
+02:38:29,251 --> 02:38:32,254
+The machine we found out near Saturn
+when we found you. Yes.`;
 
       const webVttParser = new WebVttParser();
       const result = webVttParser.parse(sample);
@@ -25,23 +30,80 @@ describe("WebVttParser", () => {
       expect(result).toEqual([
         {
           sequence: 0,
-          startTime: 74815,
-          endTime: 78114,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 14,
+            ms: 815,
+            totals: { inSeconds: 74.815 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 18,
+            ms: 114,
+            totals: { inSeconds: 78.114 },
+          },
           text: ["- What?", "- Where are we now?"],
         },
         {
           sequence: 1,
-          startTime: 78171,
-          endTime: 80991,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 18,
+            ms: 171,
+            totals: { inSeconds: 78.171 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 20,
+            ms: 991,
+            totals: { inSeconds: 80.991 },
+          },
           text: ["- This is big bat country."],
         },
         {
           sequence: 2,
-          startTime: 81058,
-          endTime: 83868,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 21,
+            ms: 58,
+            totals: { inSeconds: 81.058 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 23,
+            ms: 868,
+            totals: { inSeconds: 83.868 },
+          },
           text: [
             "- [ Bats Screeching ]",
             "- They won't get in your hair. They're after the bugs.",
+          ],
+        },
+        {
+          sequence: 3,
+          startTime: {
+            hours: 2,
+            minutes: 38,
+            seconds: 29,
+            ms: 251,
+            totals: { inSeconds: 9509.251 },
+          },
+          endTime: {
+            hours: 2,
+            minutes: 38,
+            seconds: 32,
+            ms: 254,
+            totals: { inSeconds: 9512.254 },
+          },
+          text: [
+            "The machine we found out near Saturn",
+            "when we found you. Yes.",
           ],
         },
       ]);

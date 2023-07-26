@@ -2,29 +2,20 @@ interface TimeValues {
   hours?: number;
   minutes?: number;
   seconds?: number;
-  milliseconds?: number;
+  ms?: number;
 }
 
-export const timeValuesToMilliseconds = ({
+export const timeValuesToSeconds = ({
   hours = 0,
   minutes = 0,
   seconds = 0,
-  milliseconds = 0,
+  ms = 0,
 }: TimeValues): number => {
   const minutesInHours = 60;
   const secondsInMinutes = 60;
-  const millisecondsInSeconds = 1000;
 
-  const secondsToMilliseconds = seconds * millisecondsInSeconds;
-  const minutesToMilliseconds =
-    minutes * secondsInMinutes * millisecondsInSeconds;
-  const hoursToMilliseconds =
-    hours * minutesInHours * secondsInMinutes * millisecondsInSeconds;
+  const minutesToSeconds = minutes * secondsInMinutes;
+  const hoursToSeconds = hours * minutesInHours * secondsInMinutes;
 
-  return (
-    hoursToMilliseconds +
-    minutesToMilliseconds +
-    secondsToMilliseconds +
-    milliseconds
-  );
+  return hoursToSeconds + minutesToSeconds + seconds + ms / 1000;
 };

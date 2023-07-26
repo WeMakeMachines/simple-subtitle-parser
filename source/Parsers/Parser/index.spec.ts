@@ -98,20 +98,44 @@ on the stone`;
           ["1", "00:01:48,108 --> 00:01:51,443", "Text"],
           ["2", "00:01:56,699 --> 00:01:59,827", "More text"],
         ],
-        "-->",
+        "-->"
       );
 
       expect(result).toEqual([
         {
           sequence: 0,
-          startTime: 108108,
-          endTime: 111443,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 48,
+            ms: 108,
+            totals: { inSeconds: 108.108 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 51,
+            ms: 443,
+            totals: { inSeconds: 111.443 },
+          },
           text: ["Text"],
         },
         {
           sequence: 1,
-          startTime: 116699,
-          endTime: 119827,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 56,
+            ms: 699,
+            totals: { inSeconds: 116.699 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 59,
+            ms: 827,
+            totals: { inSeconds: 119.827 },
+          },
           text: ["More text"],
         },
       ]);
@@ -120,14 +144,26 @@ on the stone`;
     test("Should not confuse a numeric caption for a sequence marker", () => {
       const result = Parser.processArrayBlocksToCues(
         [["1", "00:01:48,108 --> 00:01:51,443", "12"]],
-        "-->",
+        "-->"
       );
 
       expect(result).toEqual([
         {
           sequence: 0,
-          startTime: 108108,
-          endTime: 111443,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 48,
+            ms: 108,
+            totals: { inSeconds: 108.108 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 51,
+            ms: 443,
+            totals: { inSeconds: 111.443 },
+          },
           text: ["12"],
         },
       ]);
@@ -139,20 +175,44 @@ on the stone`;
           ["00:01:48,108 --> 00:01:51,443", "Text"],
           ["00:01:56,699 --> 00:01:59,827", "More text"],
         ],
-        "-->",
+        "-->"
       );
 
       expect(result).toEqual([
         {
           sequence: 0,
-          startTime: 108108,
-          endTime: 111443,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 48,
+            ms: 108,
+            totals: { inSeconds: 108.108 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 51,
+            ms: 443,
+            totals: { inSeconds: 111.443 },
+          },
           text: ["Text"],
         },
         {
           sequence: 1,
-          startTime: 116699,
-          endTime: 119827,
+          startTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 56,
+            ms: 699,
+            totals: { inSeconds: 116.699 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 1,
+            seconds: 59,
+            ms: 827,
+            totals: { inSeconds: 119.827 },
+          },
           text: ["More text"],
         },
       ]);
@@ -162,7 +222,7 @@ on the stone`;
       expect(() => {
         Parser.processArrayBlocksToCues(
           [["1", "00:01:51,443 --> 00:01:48,108", "Text"]],
-          "-->",
+          "-->"
         );
       }).toThrowError();
     });

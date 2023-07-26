@@ -18,14 +18,38 @@ Very good, Lieutenant.`;
       expect(result).toEqual([
         {
           sequence: 0,
-          startTime: 137440,
-          endTime: 140375,
+          startTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 17,
+            ms: 440,
+            totals: { inSeconds: 137.44 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 20,
+            ms: 375,
+            totals: { inSeconds: 140.375 },
+          },
           text: ["Senator, we're making", "our final approach into Coruscant."],
         },
         {
           sequence: 1,
-          startTime: 140476,
-          endTime: 142501,
+          startTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 20,
+            ms: 476,
+            totals: { inSeconds: 140.476 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 22,
+            ms: 501,
+            totals: { inSeconds: 142.501 },
+          },
           text: ["Very good, Lieutenant."],
         },
       ]);
@@ -45,14 +69,38 @@ Very good, Lieutenant.`;
       expect(result).toEqual([
         {
           sequence: 0,
-          startTime: 137440,
-          endTime: 140375,
+          startTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 17,
+            ms: 440,
+            totals: { inSeconds: 137.44 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 20,
+            ms: 375,
+            totals: { inSeconds: 140.375 },
+          },
           text: ["Senator, we're making", "our final approach into Coruscant."],
         },
         {
           sequence: 1,
-          startTime: 140476,
-          endTime: 142501,
+          startTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 20,
+            ms: 476,
+            totals: { inSeconds: 140.476 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 2,
+            seconds: 22,
+            ms: 501,
+            totals: { inSeconds: 142.501 },
+          },
           text: ["Very good, Lieutenant."],
         },
       ]);

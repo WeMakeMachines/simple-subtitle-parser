@@ -18,13 +18,13 @@ export default abstract class Parser {
           arrayBlockAccumulator.push([]);
         } else {
           arrayBlockAccumulator[arrayBlockAccumulator.length - 1].push(
-            currentLine,
+            currentLine
           );
         }
 
         return arrayBlockAccumulator;
       },
-      [[]],
+      [[]]
     );
   }
 
@@ -34,7 +34,7 @@ export default abstract class Parser {
 
   static processArrayBlocksToCues(
     arrayBlocks: string[][],
-    timeStampMarker: string,
+    timeStampMarker: string
   ): Cue[] {
     return arrayBlocks.map((block, blockIndex) => {
       const processedCue = block.reduce(
@@ -44,10 +44,13 @@ export default abstract class Parser {
             return cue;
           }
 
-          if (!cue.endTime && string.includes(timeStampMarker)) {
+          if (
+            !cue.endTime.totals.inSeconds &&
+            string.includes(timeStampMarker)
+          ) {
             const timeStamps = TimeStamps.parseTimeStamps(
               string,
-              timeStampMarker,
+              timeStampMarker
             );
 
             if (timeStamps) {
@@ -64,13 +67,28 @@ export default abstract class Parser {
         },
         {
           sequence: blockIndex,
-          startTime: 0,
-          endTime: 0,
+          startTime: {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            ms: 0,
+            totals: { inSeconds: 0 },
+          },
+          endTime: {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            ms: 0,
+            totals: { inSeconds: 0 },
+          },
           text: [],
-        },
+        }
       );
 
-      if (processedCue.endTime <= processedCue.startTime) {
+      if (
+        processedCue.endTime.totals.inSeconds <=
+        processedCue.startTime.totals.inSeconds
+      ) {
         throw new ParserError("Invalid Cue: Timecodes not valid");
       }
 

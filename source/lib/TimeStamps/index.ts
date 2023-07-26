@@ -1,15 +1,16 @@
-import { timeValuesToMilliseconds } from "../time";
+import { timeValuesToSeconds } from "../time";
+import { Time } from "../../types";
 
 interface TimeValues {
   hours: number;
   minutes: number;
   seconds: number;
-  milliseconds: number;
+  ms: number;
 }
 
 interface TimeStamp {
-  startTime: number;
-  endTime: number;
+  startTime: Time;
+  endTime: Time;
 }
 
 class TimeStampsError extends Error {}
@@ -17,7 +18,7 @@ class TimeStampsError extends Error {}
 export default class TimeStamps {
   static parseTimeStamps(
     string: string,
-    marker: string,
+    marker: string
   ): TimeStamp | undefined {
     const [startTimeRaw, endTimeRaw] = string.split(marker);
 
@@ -29,8 +30,14 @@ export default class TimeStamps {
     const endTimeValues = TimeStamps.splitTimeStamp(endTimeRaw);
 
     return {
-      startTime: timeValuesToMilliseconds(startTimeValues),
-      endTime: timeValuesToMilliseconds(endTimeValues),
+      startTime: {
+        ...startTimeValues,
+        totals: { inSeconds: timeValuesToSeconds(startTimeValues) },
+      },
+      endTime: {
+        ...endTimeValues,
+        totals: { inSeconds: timeValuesToSeconds(endTimeValues) },
+      },
     };
   }
 
@@ -47,14 +54,13 @@ export default class TimeStamps {
       throw new TimeStampsError("Unable to process timestamp");
     }
 
-    const [seconds, milliseconds] =
-      secondsAndMilliseconds.split(millisecondSeparator);
+    const [seconds, ms] = secondsAndMilliseconds.split(millisecondSeparator);
 
     return {
       hours: Number(hours),
       minutes: Number(minutes),
       seconds: Number(seconds),
-      milliseconds: Number(milliseconds),
+      ms: Number(ms),
     };
   }
 }

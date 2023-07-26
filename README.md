@@ -94,11 +94,26 @@ Format.Unsupported
 __interface Cue__
 
 A subtitle time encoded object of the following shape:
-```
+```ts
 {
     sequence: number;
-    startTime: number;
-    endTime: number;
+    startTime: Time;
+    endTime: Time;
     text: string[];
+}
+```
+
+__interface Time__
+
+Each time formatted object is encoded in the following way:
+```ts
+{
+  hours: number;
+  minutes: number;
+  seconds: number;
+  ms: number;
+  totals: {
+    inSeconds: number;
+  };
 }
 ```
