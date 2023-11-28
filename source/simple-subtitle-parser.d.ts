@@ -1,9 +1,20 @@
 interface Cue {
   sequence: number;
-  startTime: number;
-  endTime: number;
+  startTime: Time;
+  endTime: Time;
   text: string[];
 }
+
+interface Time {
+  hours: number;
+  minutes: number;
+  seconds: number;
+  ms: number;
+  totals: {
+    inSeconds: number;
+  };
+}
+
 declare const enum Format {
   Srt = "SRT",
   WebVtt = "WEBVTT",
@@ -15,4 +26,4 @@ declare function extractFormatFromFileName(fileName: string): {
   extension: string;
   format: Format;
 };
-export { parser, extractFormatFromFileName, Cue, Format };
+export { parser, extractFormatFromFileName, Cue, Format, Time };
