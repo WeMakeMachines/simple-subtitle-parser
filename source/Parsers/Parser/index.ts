@@ -1,7 +1,7 @@
 import { Cue } from "../../types";
 import TimeStamps from "../../lib/TimeStamps/index";
 
-class ParserError extends Error {}
+class ParserError extends Error { }
 
 export default abstract class Parser {
   abstract timeStampMarker: string;
@@ -89,7 +89,19 @@ export default abstract class Parser {
         processedCue.endTime.totals.inSeconds <=
         processedCue.startTime.totals.inSeconds
       ) {
-        throw new ParserError("Invalid Cue: Timecodes not valid");
+        throw new ParserError(
+          `Invalid cue with secuence number ${processedCue.sequence}: `
+          + `start timecode `
+          + `${processedCue.startTime.hours.toString().padStart(2, '0')}`
+          + `:${processedCue.startTime.minutes.toString().padStart(2, '0')}`
+          + `:${processedCue.startTime.seconds.toString().padStart(2, '0')}`
+          + `:${processedCue.startTime.ms.toString().padStart(3, '0')} `
+          + `greater or equal than ending one `
+          + `${processedCue.endTime.hours.toString().padStart(2, '0')}`
+          + `:${processedCue.endTime.minutes.toString().padStart(2, '0')}`
+          + `:${processedCue.endTime.seconds.toString().padStart(2, '0')}`
+          + `:${processedCue.endTime.ms.toString().padStart(3, '0')} `
+        );
       }
 
       return processedCue;
