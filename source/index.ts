@@ -1,4 +1,4 @@
-import { Cue, Format } from "./types";
+import { Cue, Format, Time } from "./types";
 import SrtParser from "./Parsers/SrtParser";
 import WebVttParser from "./Parsers/WebVttParser";
 
@@ -43,4 +43,4 @@ function extractFormatFromFileName(fileName: string): {
   };
 }
 
-export { parser, extractFormatFromFileName, Cue, Format };
+export { parser, extractFormatFromFileName, Cue, Format, Time };
