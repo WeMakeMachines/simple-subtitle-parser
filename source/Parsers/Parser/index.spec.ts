@@ -98,7 +98,7 @@ on the stone`;
           ["1", "00:01:48,108 --> 00:01:51,443", "Text"],
           ["2", "00:01:56,699 --> 00:01:59,827", "More text"],
         ],
-        "-->"
+        "-->",
       );
 
       expect(result).toEqual([
@@ -144,7 +144,7 @@ on the stone`;
     test("Should not confuse a numeric caption for a sequence marker", () => {
       const result = Parser.processArrayBlocksToCues(
         [["1", "00:01:48,108 --> 00:01:51,443", "12"]],
-        "-->"
+        "-->",
       );
 
       expect(result).toEqual([
@@ -175,7 +175,7 @@ on the stone`;
           ["00:01:48,108 --> 00:01:51,443", "Text"],
           ["00:01:56,699 --> 00:01:59,827", "More text"],
         ],
-        "-->"
+        "-->",
       );
 
       expect(result).toEqual([
@@ -222,7 +222,7 @@ on the stone`;
       expect(() => {
         Parser.processArrayBlocksToCues(
           [["1", "00:01:51,443 --> 00:01:48,108", "Text"]],
-          "-->"
+          "-->",
         );
       }).toThrowError();
     });
