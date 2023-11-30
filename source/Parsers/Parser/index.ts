@@ -90,7 +90,7 @@ export default abstract class Parser {
         processedCue.startTime.totals.inSeconds
       ) {
         throw new ParserError(
-          `Invalid cue with secuence number ${processedCue.sequence}: `
+          `Invalid cue with sequence number ${processedCue.sequence}: `
           + `start timecode `
           + `${processedCue.startTime.hours.toString().padStart(2, '0')}`
           + `:${processedCue.startTime.minutes.toString().padStart(2, '0')}`
