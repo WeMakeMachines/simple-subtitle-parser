@@ -18,13 +18,13 @@ export default abstract class Parser {
           arrayBlockAccumulator.push([]);
         } else {
           arrayBlockAccumulator[arrayBlockAccumulator.length - 1].push(
-            currentLine
+            currentLine,
           );
         }
 
         return arrayBlockAccumulator;
       },
-      [[]]
+      [[]],
     );
   }
 
@@ -34,7 +34,7 @@ export default abstract class Parser {
 
   static processArrayBlocksToCues(
     arrayBlocks: string[][],
-    timeStampMarker: string
+    timeStampMarker: string,
   ): Cue[] {
     return arrayBlocks.map((block, blockIndex) => {
       const processedCue = block.reduce(
@@ -50,7 +50,7 @@ export default abstract class Parser {
           ) {
             const timeStamps = TimeStamps.parseTimeStamps(
               string,
-              timeStampMarker
+              timeStampMarker,
             );
 
             if (timeStamps) {
@@ -82,14 +82,26 @@ export default abstract class Parser {
             totals: { inSeconds: 0 },
           },
           text: [],
-        }
+        },
       );
 
       if (
         processedCue.endTime.totals.inSeconds <=
         processedCue.startTime.totals.inSeconds
       ) {
-        throw new ParserError("Invalid Cue: Timecodes not valid");
+        throw new ParserError(
+          `Invalid cue with sequence number ${processedCue.sequence}: ` +
+            `start timecode ` +
+            `${processedCue.startTime.hours.toString().padStart(2, "0")}` +
+            `:${processedCue.startTime.minutes.toString().padStart(2, "0")}` +
+            `:${processedCue.startTime.seconds.toString().padStart(2, "0")}` +
+            `:${processedCue.startTime.ms.toString().padStart(3, "0")} ` +
+            `greater or equal than ending one ` +
+            `${processedCue.endTime.hours.toString().padStart(2, "0")}` +
+            `:${processedCue.endTime.minutes.toString().padStart(2, "0")}` +
+            `:${processedCue.endTime.seconds.toString().padStart(2, "0")}` +
+            `:${processedCue.endTime.ms.toString().padStart(3, "0")} `,
+        );
       }
 
       return processedCue;

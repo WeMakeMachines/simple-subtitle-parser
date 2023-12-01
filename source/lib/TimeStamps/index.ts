@@ -18,7 +18,7 @@ class TimeStampsError extends Error {}
 export default class TimeStamps {
   static parseTimeStamps(
     string: string,
-    marker: string
+    marker: string,
   ): TimeStamp | undefined {
     const [startTimeRaw, endTimeRaw] = string.split(marker);
 
@@ -47,8 +47,8 @@ export default class TimeStamps {
     const millisecondSeparator = secondsAndMilliseconds.includes(",")
       ? ","
       : secondsAndMilliseconds.includes(".")
-      ? "."
-      : "";
+        ? "."
+        : "";
 
     if (millisecondSeparator === "") {
       throw new TimeStampsError("Unable to process timestamp");

@@ -33,17 +33,17 @@
   ],
   "homepage": "https://github.com/WeMakeMachines/subtitle-parsing-tool#readme",
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.3",
-    "@rollup/plugin-typescript": "^11.1.2",
-    "@types/jest": "^29.5.3",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "8.44.0",
-    "jest": "29.6.1",
-    "prettier": "3.0.0",
-    "rollup": "3.26.2",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/jest": "^29.5.10",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.0",
+    "rollup": "^4.6.0",
     "ts-jest": "29.1.1",
-    "tslib": "^2.6.0",
-    "typescript": "5.1.6"
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.2"
   }
 }
