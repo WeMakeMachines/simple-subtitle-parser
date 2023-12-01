@@ -1,10 +1,10 @@
 {
   "private": false,
   "name": "simple-subtitle-parser",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "author": "Franco Speziali",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "main": "dist/simple-subtitle-parser.min.js",
   "module": "dist/simple-subtitle-parser.es.min.js",
   "types": "dist/simple-subtitle-parser.d.ts",
