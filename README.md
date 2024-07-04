@@ -23,7 +23,7 @@ Now includes typings!
 
 ##### ES6
 
-`import { parser } from 'simple-subtitle-parser`
+`import { parser } from 'simple-subtitle-parser';`
 
 With types
 
